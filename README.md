@@ -4,35 +4,6 @@ This repository contains MATLAB code and preprocessed input data for identifying
 
 The code uses greenhouse biophysical knowledge to build a state-specific candidate library, applies sequentially thresholded least squares (STLSQ), selects models using derivative-prediction error on a separate 40-day interval, and evaluates the selected equations on a third 40-day interval. A second script studies sensitivity to additive Gaussian noise.
 
-> **Reproducibility status.** The nominal greenhouse model and its unit-conversion dependencies are self-contained and pass a clean MATLAB R2024b smoke test. The complete, computationally intensive SINDy-PI searches have not been rerun as part of this README audit. The conventional SINDy-PI baseline and MPC trajectory-generation code are not present, and several reproducibility issues remain. See [Known issues and pre-release checklist](#known-issues-and-pre-release-checklist).
-
-## Repository structure
-
-```text
-.
-|-- SINDyPI_Greenhouselettuce_PhysML_BruteforceSearch.m  Main noise-free identification
-|-- SINDyPI_Greenhouselettuce_PhysML_Noise.m             Noise-sensitivity experiment
-|-- Sindy_ODE_RHS_GHLettuce.m                            Generated/committed identified RHS
-|-- Functions/
-|   |-- GHLettuce_ODE.m                                  Nominal Van Henten-type plant model
-|   |-- Get_Sim_Data_GHLettuce.m                         Piecewise-constant-input simulation
-|   |-- Get_ScoreGHLettuce.m                             Relative derivative-error score
-|   |-- GuessLib_GHLettuce_PhysML_*.m                    Left-hand-side libraries
-|   |-- SINDyLib_GHLettuce_PhysML_*.m                    Right-hand-side libraries
-|   |-- sparsifyDynamics_GHLettuce.m                     STLSQ implementation
-|   |-- ExcludeGuess.m                                   Removes the LHS term from the RHS
-|   |-- Generate_ODE_RHS_GHLettuce.m                     Writes the identified MATLAB RHS
-|   |-- Print_ODEs_GHLettuce.m                           Symbolic equation display
-|   |-- PlotResults_GHLettuce_*.m                        Data-visualization scripts
-|   |-- co2ppm2dens.m, co2dens2ppm.m                     CO2 unit conversion
-|   `-- Sindy_ODE_RHS_GHLettuce.m                        Duplicate generated RHS
-`-- bin/data/
-    |-- control signals/                                 Three 40-day input trajectories
-    |-- disturbances/                                    Three 40-day weather trajectories
-    |-- outdoorWeatherWurGlas2014.mat                    Raw 2014 weather table
-    `-- README.docx                                      Source-data description
-```
-
 ## Model signals and units
 
 The ordering below follows the MATLAB implementation and must be kept consistent in the manuscript, data files, candidate libraries, and generated equations.
